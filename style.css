@@ -10,7 +10,7 @@ body {
   background: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -47,21 +47,44 @@ form button:hover {
 ul {
   list-style: none;
   padding: 0;
+  overflow: hidden;
 }
 
 ul li {
+  margin: 12px;
   padding: 10px;
   border-bottom: 1px solid #ddd;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+.list {
+  border: 2px solid #19c84276;
+  border-radius: 9px;
+  background: #28a74612;
+  color: black;
+  transition: 0.5s  ease;
+}
 
+.list:hover {
+  border: 2px solid #d8d9de;
+  border-radius: 9px;
+  color: black;
+  background: #28a7465f;
+  transform: scale(0.95);
+  animation: animate ease;
+}
+@keyframes animate {
+  from {
+    transform: translateY(50px);
+  }
+}
 li span {
   flex-grow: 1;
 }
 
-button.edit, button.delete {
+button.edit,
+button.delete {
   margin-left: 5px;
   border: none;
   padding: 5px 8px;

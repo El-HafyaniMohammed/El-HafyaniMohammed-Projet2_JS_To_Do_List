@@ -32,6 +32,7 @@ function renderTasks() {
 
   tasks.forEach((task, index) => {
     const li = document.createElement('li');
+    li.classList.add('list');
 
     const span = document.createElement('span');
     span.textContent = task;
