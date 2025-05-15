@@ -1,21 +1,82 @@
-const inp = document.getElementById('inp');
-const btn = document.getElementById('btn');
-const result = document.getElementById('todo-list');
+const form = document.getElementById('task-form');
+const input = document.getElementById('inp');
+const todoList = document.getElementById('todo-list');
 
-btn.addEventListener('click', function(event) {
-  event.preventDefault(); 
+// Charger les tâches depuis localStorage
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+renderTasks();
 
-  if (inp.value.trim() === '') {
-    alert('Please ajouter une tache');
-  } else {
-    const li = document.createElement('li');
-    li.style.listStyleType = 'none'; 
-    li.style.padding = '10px'; 
-    li.style.margin = '5px 0'; 
-    li.style.backgroundColor = '#f0f0f0'; 
-    li.style.borderRadius = '5px'; 
-    li.innerHTML = inp.value;
-    result.appendChild(li);
-    inp.value = '';
+// Ajouter une tâche
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const taskText = input.value.trim();
+
+  if (taskText === '') {
+    alert('Please ajouter une tâche');
+    return;
   }
+
+  tasks.push(taskText);
+  saveTasks();
+  renderTasks();
+  input.value = '';
 });
+
+// Fonction pour sauvegarder dans localStorage
+function saveTasks() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+// Fonction pour afficher la liste
+function renderTasks() {
+  todoList.innerHTML = '';
+
+  tasks.forEach((task, index) => {
+    const li = document.createElement('li');
+
+    // span pour texte المهمة
+    const span = document.createElement('span');
+    span.textContent = task;
+
+    // زر تعديل
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.classList.add('edit');
+    editBtn.addEventListener('click', () => editTask(index));
+
+    // زر حذف
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.classList.add('delete');
+    deleteBtn.addEventListener('click', () => deleteTask(index));
+
+    li.appendChild(span);
+    li.appendChild(editBtn);
+    li.appendChild(deleteBtn);
+    todoList.appendChild(li);
+  });
+}
+
+// دالة تعديل المهمة
+function editTask(index) {
+  const newTask = prompt('Modifier la tâche:', tasks[index]);
+  if (newTask !== null) {
+    const trimmed = newTask.trim();
+    if (trimmed !== '') {
+      tasks[index] = trimmed;
+      saveTasks();
+      renderTasks();
+    } else {
+      alert('La tâche ne peut pas être vide.');
+    }
+  }
+}
+
+// دالة حذف المهمة
+function deleteTask(index) {
+  if (confirm('Voulez-vous vraiment supprimer cette tâche ?')) {
+    tasks.splice(index, 1);
+    saveTasks();
+    renderTasks();
+  }
+}
