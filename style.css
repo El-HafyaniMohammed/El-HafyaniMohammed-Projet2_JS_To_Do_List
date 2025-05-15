@@ -64,6 +64,7 @@ ul li {
   background: #28a74612;
   color: black;
   transition: 0.5s  ease;
+  box-shadow: 0 0 50px rgb(36, 218, 8);
 }
 
 .list:hover {
@@ -82,7 +83,12 @@ ul li {
 li span {
   flex-grow: 1;
 }
+.style-span {
+  background: #c82333;
 
+
+
+}
 button.edit,
 button.delete {
   margin-left: 5px;
