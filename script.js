@@ -27,24 +27,20 @@ function saveTasks() {
   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-// Fonction pour afficher la liste
 function renderTasks() {
   todoList.innerHTML = '';
 
   tasks.forEach((task, index) => {
     const li = document.createElement('li');
 
-    // span pour texte المهمة
     const span = document.createElement('span');
     span.textContent = task;
 
-    // زر تعديل
     const editBtn = document.createElement('button');
     editBtn.textContent = 'Edit';
     editBtn.classList.add('edit');
     editBtn.addEventListener('click', () => editTask(index));
 
-    // زر حذف
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
     deleteBtn.classList.add('delete');
@@ -57,7 +53,6 @@ function renderTasks() {
   });
 }
 
-// دالة تعديل المهمة
 function editTask(index) {
   const newTask = prompt('Modifier la tâche:', tasks[index]);
   if (newTask !== null) {
@@ -72,7 +67,6 @@ function editTask(index) {
   }
 }
 
-// دالة حذف المهمة
 function deleteTask(index) {
   if (confirm('Voulez-vous vraiment supprimer cette tâche ?')) {
     tasks.splice(index, 1);
